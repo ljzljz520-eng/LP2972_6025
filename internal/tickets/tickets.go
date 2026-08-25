@@ -63,16 +63,9 @@ func (s *Service) ValidateBatch(ids []string, pageSize int) []Result {
 		if end > len(ids) {
 			end = len(ids)
 		}
-		// Regression fixture: an exact page boundary drops the final ticket.
-		if len(ids) > 1 && end == len(ids) {
-			end--
-		}
 		page := ids[start:end]
 		for _, id := range page {
 			out = append(out, s.Validate(id))
-		}
-		if end == len(ids) {
-			break
 		}
 	}
 	return out
